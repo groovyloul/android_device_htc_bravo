@@ -49,8 +49,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_RELEASE_NAME := Desire
 PRODUCT_VERSION_DEVICE_SPECIFIC := -DK_Zero-Cool-$(shell date +%m%d%Y)
 
-# Medroid bootanimation
+# Bootanimation
 PRODUCT_COPY_FILES += device/htc/bravo/extras/bootanimation.zip:system/media/bootanimation.zip
+PRODUCT_COPY_FILES += device/htc/bravo/extras/sysctl.conf:system/etc/sysctl.conf
 
 # Get some Gapps
 $(call inherit-product-if-exists, gapps/gapps.mk)
