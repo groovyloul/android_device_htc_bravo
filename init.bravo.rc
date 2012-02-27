@@ -70,6 +70,11 @@ on boot
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
     write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 40000
 
+    # KSM defaults
+    # write /sys/kernel/mm/ksm/sleep_millisecs 1500
+    write /sys/kernel/mm/ksm/sleep_millisecs 3000
+    write /sys/kernel/mm/ksm/pages_to_scan 256
+
     # Wakelock debug
     write /sys/module/wakelock/parameters/debug_mask 7
 
