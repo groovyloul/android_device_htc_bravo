@@ -25,9 +25,9 @@ PRIVATE_BUILD_DESC="bravo-user 2.3.6 GRK39F 189904 release-keys"
 PRODUCT_CODENAME := bravo
 #PRODUCT_VERSION_DEVICE_SPECIFIC := v1
 ifeq ($(NIGHTLY_BUILD),true)
-    BUILD_VERSION := RC1.1-$(shell date +%m%d%Y)-NIGHTLY
+    BUILD_VERSION := RC2.1U0-$(shell date +%m%d%Y)-NIGHTLY
 else
-    BUILD_VERSION := RC1.1
+    BUILD_VERSION := RC2.1U0
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
