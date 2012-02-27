@@ -83,7 +83,7 @@ on boot
     setprop ro.ril.fd.scron.timeout 4
     setprop ro.ril.fd.scroff.timeout 3
 
-on property:init.svc.dhcpcd_eth0=stopped
+on property:init.svc.dhcpcd_wlan0=stopped
    restart dhcpcdstate
 
 on property:wlan.driver.status=*
@@ -96,22 +96,22 @@ service akmd /system/bin/akmd
     group compass misc input
 
 service wpa_supplicant /system/bin/wpa_supplicant \
-    -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf
+    -Dwext -wlan0 -c/data/misc/wifi/wpa_supplicant.conf
 #   we will start as root and wpa_supplicant will switch to user wifi
 #   after setting up the capabilities required for WEXT
 #   user wifi
 #   group wifi inet keystore
     class main
-    socket wpa_eth0 dgram 660 wifi wifi
+    socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
 
-service dhcpcd_eth0 /system/bin/dhcpcd -ABKL --config /system/etc/dhcpcd/dhcpcd.conf --script /system/etc/dhcpcd/dhcpcd-hook
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL --config /system/etc/dhcpcd/dhcpcd.conf --script /system/etc/dhcpcd/dhcpcd-hook
     class main
     disabled
     oneshot
 
-service iprenew_eth0 /system/bin/dhcpcd -n --config /system/etc/dhcpcd/dhcpcd.conf --script /system/etc/dhcpcd/dhcpcd-hook
+service iprenew_wlan0 /system/bin/dhcpcd -n --config /system/etc/dhcpcd/dhcpcd.conf --script /system/etc/dhcpcd/dhcpcd-hook
     class main
     disabled
     oneshot
@@ -130,11 +130,11 @@ service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
     group bluetooth net_bt_admin
     disabled
 
-service dhcpcdstate /system/etc/dhcpcd/dhcpcd-hook STOP eth0
+service dhcpcdstate /system/etc/dhcpcd/dhcpcd-hook STOP wlan0
     disabled
     oneshot
 
-service wifistate /system/etc/wifi/wifi-hook eth0
+service wifistate /system/etc/wifi/wifi-hook wlan0
     disabled
     oneshot
 
