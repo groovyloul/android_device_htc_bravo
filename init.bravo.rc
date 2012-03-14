@@ -111,7 +111,17 @@ service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL --config /system/etc/dhcpcd/dhcpcd
     disabled
     oneshot
 
+service dhcpcd_p2p /system/bin/dhcpcd -aABKL --config /system/etc/dhcpcd/dhcpcd.conf --script /system/etc/dhcpcd/dhcpcd-hook
+    class main
+    disabled
+    oneshot
+
 service iprenew_wlan0 /system/bin/dhcpcd -n --config /system/etc/dhcpcd/dhcpcd.conf --script /system/etc/dhcpcd/dhcpcd-hook
+    class main
+    disabled
+    oneshot
+
+service iprenew_p2p /system/bin/dhcpcd -n --config /system/etc/dhcpcd/dhcpcd.conf --script /system/etc/dhcpcd/dhcpcd-hook
     class main
     disabled
     oneshot

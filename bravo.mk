@@ -25,7 +25,7 @@ DEVICE_PACKAGE_OVERLAYS := device/htc/bravo/overlay
 PRODUCT_LOCALES := en
 
 # General propreties
-PRODUCT_PROPERTY_OVERRIDES := \
+PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=240 \
     rild.libpath=/system/lib/libhtc_ril.so \
     ro.ril.ecc.HTC-ELL=92,93,94 \
@@ -96,7 +96,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.enabletr=false
 
 # Set usb type
-ADDITIONAL_DEFAULT_PROPERTIES := \
+ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.sys.usb.config=mass_storage \
     persist.service.adb.enable=1
 
@@ -104,7 +104,7 @@ ADDITIONAL_DEFAULT_PROPERTIES := \
 # Packages required for bravo
 #
 # Sensors
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
     gps.bravo \
     lights.bravo \
     sensors.bravo \
@@ -147,7 +147,7 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Prebuilt files/configs
-PRODUCT_COPY_FILES := \
+PRODUCT_COPY_FILES += \
     device/htc/bravo/init.bravo.rc:root/init.bravo.rc \
     device/htc/bravo/init.bravo.usb.rc:root/init.bravo.usb.rc \
     device/htc/bravo/ueventd.bravo.rc:root/ueventd.bravo.rc \
