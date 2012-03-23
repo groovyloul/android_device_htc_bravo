@@ -40,27 +40,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.hsupa.category=5 \
     ro.ril.hsxpa=2 \
     ro.ril.def.agps.mode=2 \
+    ro.ril.enable.managed.roaming=1 \
+    ro.ril.oem.nosim.ecclist=911,112,999,000,08,118,120,122,110,119,995 \
+    ro.ril.emc.mode=2
     wifi.interface=wlan0 \
-    wifi.supplicant_scan_interval=15 \
-    mobiledata.interfaces=rmnet0,rmnet1,rmnet2 \
-    ro.media.dec.jpeg.memcap=20000000 \
-    ro.opengles.version=131072
-
-# Dalvik properties - read from AndroidRuntime
-# dexop-flags:
-# "v="  verification 'n': none, 'r': remote, 'a': all
-# "o="  optimization 'n': none, 'v': verified, 'a': all, 'f': full
-# "m=y" register map
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dexopt-flags=v=n,o=v,m=y \
-    dalvik.vm.checkjni=false \
-    dalvik.vm.heapstartsize=5m \
-    dalvik.vm.heapgrowthlimit=48m \
-    dalvik.vm.heapsize=128m
-
-# UMS
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vold.umsdirtyratio=20
+    mobiledata.interfaces=rmnet0,rmnet1,rmnet2
 
 # Default network type.
 # 0 => /* GSM/WCDMA (WCDMA preferred) */
@@ -70,36 +54,6 @@ PRODUCT_PROPERTY_OVERRIDES += ro.telephony.default_network=3
 # Set default_france.acdb to audio_ctl driver if the ro.cid is HTC__203
 PRODUCT_PROPERTY_OVERRIDES += ro.ril.enable.prl.recognition=1
 
-# Don't set /proc/sys/vm/dirty_ratio to 0 when USB mounting
-PRODUCT_PROPERTY_OVERRIDES += ro.vold.umsdirtyratio=20
-
-# Ril workaround
-# Also available: skipbrokendatacall,facilitylock,datacall,icccardstatus
-PRODUCT_PROPERTY_OVERRIDES += ro.telephony.ril.v3=signalstrength
-
-# Enable gpu composition: 0 => cpu composition, 1 => gpu composition
-# Note: must be 1 for debug.composition.type to work
-PRODUCT_PROPERTY_OVERRIDES += debug.sf.hw=1
-
-# Enable copybit composition
-PRODUCT_PROPERTY_OVERRIDES += debug.composition.type=mdp
-
-# Force 2 buffers - gralloc defaults to 3 and we only have 2
-PRODUCT_PROPERTY_OVERRIDES += debug.gr.numframebuffers=2
-
-# HardwareRenderer properties
-# dirty_regions: "false" to disable partial invalidates, override if enabletr=true
-PRODUCT_PROPERTY_OVERRIDES += \
-    hwui.render_dirty_regions=false \
-    hwui.disable_vsync=true \
-    hwui.print_config=choice \
-    debug.enabletr=false
-
-# Set usb type
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    persist.sys.usb.config=mass_storage \
-    persist.service.adb.enable=1
-
 #
 # Packages required for bravo
 #
@@ -107,44 +61,11 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 PRODUCT_PACKAGES += \
     gps.bravo \
     lights.bravo \
-    sensors.bravo \
-    camera.qsd8k
-# Audio
-PRODUCT_PACKAGES += \
-    audio.a2dp.default \
-    audio.primary.qsd8k \
-    audio_policy.qsd8k \
-    libaudioutils
-# GPU
-PRODUCT_PACKAGES += \
-    copybit.qsd8k \
-    gralloc.qsd8k \
-    hwcomposer.default \
-    hwcomposer.qsd8k \
-    libgenlock \
-    libmemalloc \
-    libtilerenderer \
-    libQcomUI
-# Omx
-PRODUCT_PACKAGES += \
-    libOmxCore \
-    libOmxVidEnc \
-    libOmxVdec \
-    libstagefrighthw
-# Omx cli test apps
-PRODUCT_PACKAGES += \
-    libmm-omxcore \
-    mm-vdec-omx-test \
-    liblasic \
-    ast-mm-vdec-omx-test \
-    mm-venc-omx-test
+    sensors.bravo
 
 # Bravo uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal hdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
-
-# we have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Prebuilt files/configs
 PRODUCT_COPY_FILES += \
@@ -156,43 +77,21 @@ PRODUCT_COPY_FILES += \
     device/htc/bravo/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
     device/htc/bravo/synaptics-rmi-touchscreen.idc:system/usr/idc/synaptics-rmi-touchscreen.idc \
     device/htc/bravo/curcial-oj.idc:system/usr/idc/curcial-oj.idc \
-    device/htc/bravo/vold.fstab:system/etc/vold.fstab
+    device/htc/bravo/vold.fstab:system/etc/vold.fstab \
+    device/htc/bravo/media_profiles.xml:system/etc/media_profiles.xml
 
-# Prebuilt modules
+# Prebuilt kernel & modules
 PRODUCT_COPY_FILES += \
-    device/htc/bravo/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko
-
-# Prebuilt Kernel
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-LOCAL_KERNEL := device/htc/bravo/prebuilt/kernel
-else
-LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
+    device/htc/bravo/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko \
+    device/htc/bravo/prebuilt/kernel:kernel
 
 # Permissions
 PRODUCT_COPY_FILES += \
-    frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
-    frameworks/base/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-    frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-    frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
-    frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-    frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-    frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml
-
-# media config xml file
-PRODUCT_COPY_FILES += \
-    device/htc/bravo/media_profiles.xml:system/etc/media_profiles.xml
+    frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml 
 
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
-
-$(call inherit-product, vendor/bcm/bcm.mk)
+$(call inherit-product-if-exists, vendor/qsd8k/qsd8k.mk)
 
 # Also get non-open-source GSM-specific aspects if available
 $(call inherit-product-if-exists, vendor/htc/bravo/bravo-vendor.mk)
