@@ -42,7 +42,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.def.agps.mode=2 \
     ro.ril.enable.managed.roaming=1 \
     ro.ril.oem.nosim.ecclist=911,112,999,000,08,118,120,122,110,119,995 \
-    ro.ril.emc.mode=2
+    ro.ril.emc.mode=2 \
     wifi.interface=wlan0 \
     mobiledata.interfaces=rmnet0,rmnet1,rmnet2
 
