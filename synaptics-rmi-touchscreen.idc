@@ -41,6 +41,8 @@ touch.toolSize.linearScale = 10
 touch.toolSize.linearBias = 160
 touch.toolSize.isSummed = 1
 
+touch.filterTouchEvents = 1
+
 # Pressure
 # Driver reports signal strength as pressure.
 #
