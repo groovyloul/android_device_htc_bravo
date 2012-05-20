@@ -22,7 +22,6 @@
 # First, the most specific values, i.e. the aspects that are specific to GSM
 
 DEVICE_PACKAGE_OVERLAYS := device/htc/bravo/overlay
-PRODUCT_LOCALES := en
 
 # General propreties
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -46,6 +45,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     mobiledata.interfaces=rmnet0,rmnet1,rmnet2
 
+PRODUCT_PACKAGES += \
+	gps.bravo \
+	lights.bravo \
+	sensors.bravo \
+
 # Default network type.
 # 0 => /* GSM/WCDMA (WCDMA preferred) */
 # 3 => /* GSM/WCDMA (auto mode, according to PRL) */
@@ -54,44 +58,22 @@ PRODUCT_PROPERTY_OVERRIDES += ro.telephony.default_network=3
 # Set default_france.acdb to audio_ctl driver if the ro.cid is HTC__203
 PRODUCT_PROPERTY_OVERRIDES += ro.ril.enable.prl.recognition=1
 
-#
-# Packages required for bravo
-#
-# Sensors
-PRODUCT_PACKAGES += \
-    gps.bravo \
-    lights.bravo \
-    sensors.bravo
-
-# Bravo uses high-density artwork where available
-PRODUCT_AAPT_CONFIG := normal hdpi
-PRODUCT_AAPT_PREF_CONFIG := hdpi
-
 # Prebuilt files/configs
 PRODUCT_COPY_FILES += \
-    device/htc/bravo/init.bravo.rc:root/init.bravo.rc \
-    device/htc/bravo/init.bravo.usb.rc:root/init.bravo.usb.rc \
-    device/htc/bravo/ueventd.bravo.rc:root/ueventd.bravo.rc \
-    device/htc/bravo/bravo-keypad.kl:system/usr/keylayout/bravo-keypad.kl \
-    device/htc/bravo/bravo-keypad.kcm:system/usr/keychars/bravo-keypad.kcm \
-    device/htc/bravo/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
-    device/htc/bravo/synaptics-rmi-touchscreen.idc:system/usr/idc/synaptics-rmi-touchscreen.idc \
-    device/htc/bravo/curcial-oj.idc:system/usr/idc/curcial-oj.idc \
-    device/htc/bravo/vold.fstab:system/etc/vold.fstab \
-    device/htc/bravo/media_profiles.xml:system/etc/media_profiles.xml
-
-# Prebuilt kernel & modules
-PRODUCT_COPY_FILES += \
-    device/htc/bravo/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko \
-    device/htc/bravo/prebuilt/kernel:kernel
-
-# Permissions
-PRODUCT_COPY_FILES += \
-    frameworks/base/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml 
+    device/htc/bravo/prebuild/init.bravo.rc:root/init.bravo.rc \
+    device/htc/bravo/prebuild/init.bravo.usb.rc:root/init.bravo.usb.rc \
+    device/htc/bravo/prebuild/ueventd.bravo.rc:root/ueventd.bravo.rc \
+    device/htc/bravo/prebuild/bravo-keypad.kl:system/usr/keylayout/bravo-keypad.kl \
+    device/htc/bravo/prebuild/bravo-keypad.kcm:system/usr/keychars/bravo-keypad.kcm \
+    device/htc/bravo/prebuild/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
+    device/htc/bravo/prebuild/synaptics-rmi-touchscreen.idc:system/usr/idc/synaptics-rmi-touchscreen.idc \
+    device/htc/bravo/prebuild/curcial-oj.idc:system/usr/idc/curcial-oj.idc \
+    device/htc/bravo/prebuild/vold.fstab:system/etc/vold.fstab \
+    device/htc/bravo/prebuild/media_profiles.xml:system/etc/media_profiles.xml
 
 # stuff common to all HTC phones
+$(call inherit-product, vendor/qsd8k/qsd8k-vendor_gsm.mk)
 $(call inherit-product, device/htc/common/common.mk)
-$(call inherit-product-if-exists, vendor/qsd8k/qsd8k.mk)
 
 # Also get non-open-source GSM-specific aspects if available
 $(call inherit-product-if-exists, vendor/htc/bravo/bravo-vendor.mk)
