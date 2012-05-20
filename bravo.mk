@@ -60,16 +60,16 @@ PRODUCT_PROPERTY_OVERRIDES += ro.ril.enable.prl.recognition=1
 
 # Prebuilt files/configs
 PRODUCT_COPY_FILES += \
-    device/htc/bravo/prebuild/init.bravo.rc:root/init.bravo.rc \
-    device/htc/bravo/prebuild/init.bravo.usb.rc:root/init.bravo.usb.rc \
-    device/htc/bravo/prebuild/ueventd.bravo.rc:root/ueventd.bravo.rc \
-    device/htc/bravo/prebuild/bravo-keypad.kl:system/usr/keylayout/bravo-keypad.kl \
-    device/htc/bravo/prebuild/bravo-keypad.kcm:system/usr/keychars/bravo-keypad.kcm \
-    device/htc/bravo/prebuild/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
-    device/htc/bravo/prebuild/synaptics-rmi-touchscreen.idc:system/usr/idc/synaptics-rmi-touchscreen.idc \
-    device/htc/bravo/prebuild/curcial-oj.idc:system/usr/idc/curcial-oj.idc \
-    device/htc/bravo/prebuild/vold.fstab:system/etc/vold.fstab \
-    device/htc/bravo/prebuild/media_profiles.xml:system/etc/media_profiles.xml
+    device/htc/bravo/prebuilt/init.bravo.rc:root/init.bravo.rc \
+    device/htc/bravo/prebuilt/init.bravo.usb.rc:root/init.bravo.usb.rc \
+    device/htc/bravo/prebuilt/ueventd.bravo.rc:root/ueventd.bravo.rc \
+    device/htc/bravo/prebuilt/bravo-keypad.kl:system/usr/keylayout/bravo-keypad.kl \
+    device/htc/bravo/prebuilt/bravo-keypad.kcm:system/usr/keychars/bravo-keypad.kcm \
+    device/htc/bravo/prebuilt/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
+    device/htc/bravo/prebuilt/synaptics-rmi-touchscreen.idc:system/usr/idc/synaptics-rmi-touchscreen.idc \
+    device/htc/bravo/prebuilt/curcial-oj.idc:system/usr/idc/curcial-oj.idc \
+    device/htc/bravo/prebuilt/vold.fstab:system/etc/vold.fstab \
+    device/htc/bravo/prebuilt/media_profiles.xml:system/etc/media_profiles.xml
 
 # stuff common to all HTC phones
 $(call inherit-product, vendor/qsd8k/qsd8k-vendor_gsm.mk)
