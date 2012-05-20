@@ -1,14 +1,8 @@
 # Inherit AOSP device configuration for bravo.
 $(call inherit-product, device/htc/bravo/full_bravo.mk)
 
-# Inherit some common cyanogenmod stuff.
-$(call inherit-product, vendor/cm/config/common_full_phone.mk)
-
-# Include GSM stuff
-$(call inherit-product, vendor/cm/config/gsm.mk)
-
 # Include BCM stuff
-$(call inherit-product-if-exists, vendor/bcm/bcm-vendor.mk)
+$(call inherit-product-if-exists, vendor/bcm/bcm-vendor_gsm.mk)
 
 #
 # Setup device specific product configuration.
